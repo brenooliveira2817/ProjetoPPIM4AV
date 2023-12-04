@@ -256,6 +256,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(process.cwd(),'paginas')));
 
 app.get('/', autenticar, (requisicao, resposta) =>{
+    
+    const usuarioLogado = requisicao.cookies.NomeUsuario;
     const dataUltimoAcesso = requisicao.cookies.DataUltimoAcesso;
     const data = new Date();
     resposta.cookie("DataUltimoAcesso", data.toLocaleString(), {
@@ -280,7 +282,7 @@ app.get('/', autenticar, (requisicao, resposta) =>{
             </div>    
             </body>
             <footer>
-                <p>Seu ultimo acesso foi em ${dataUltimoAcesso}</p>
+                <p>Olá ${usuarioLogado}, seu ultimo acesso foi em ${dataUltimoAcesso}</p>
             </footer>
         </html>
         `);
@@ -292,6 +294,10 @@ app.post('/login', (requisicao, resposta)=>{
     const senha = requisicao.body.senha;
     if(usuario && senha && (usuario === 'breno') && (senha === '123')){
         requisicao.session.usuarioAutenticado = true;
+        resposta.cookie('NomeUsuario', usuario, {
+            maxAge: 1000 * 60 * 60 * 24 * 30,
+            httpOnly: true
+        });
         resposta.redirect('/');
     }
     else{

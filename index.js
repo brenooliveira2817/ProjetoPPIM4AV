@@ -306,10 +306,15 @@ app.post('/login', (requisicao, resposta)=>{
                 <head>
                     <meta charset="UTF-8">
                     <title>Falha na autenticação</title>
+                    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
                 </head>
                 <body>
-                    <h3>Usuário ou senha inválidos!</h3>
-                    <a href="/login.html">Voltar ao Login</a>
+                <div class="col-6">
+                    <h1>Usuário ou senha inválidos!</h1>
+                    <nav class="nav flex-column">
+                        <a style="font-size: 30px;" class="nav-link" href="/login.html">Voltar ao Login</a>
+                    </nav>
+                </div>  
                 </body>
             </html>
         `);
